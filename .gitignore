@@ -2,3 +2,9 @@
 .Rhistory
 .RData
 .Ruserdata
+*/*SCL
+.dropbox
+Icon*
+
+# Ignore these directories
+presentations/
