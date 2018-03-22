@@ -1,0 +1,57 @@
+---
+title: "Demographic Model - Chelydra serpentina"
+output: html_notebook
+author: Michael Tierney
+---
+
+Demographic Models
+
+  A population model of chelydra serpentina (snapping turtles) was developed using age, population density, and habitat suitability in order to determine population dynamics for the species.
+The software used to develop the models was RAMAS GIS.
+This model took into account only females in the population.
+Therefore, the only values affected by this are clutch sizes while a stage matrix is used to determine suitability as the species evolves from a hatchling, to a juvenile, to a sub-adult, and finally into an adult snapping turtle.
+  Parameters for the species were used to develop a "generic life history model" of snapping turtles (Pearson, 2014).
+In order to parameterize some uncertainties in the environment, a 4 stage matrix was developed based off the data collected from research in similar habitats (Heppell, 1998).
+There were 5 different scenarios used in order to determine the survivorship of the species.
+The first scenario displays the potential of the species under perfect conditions.
+This base model takes into consideration a single population under ideal conditions where the population increases until it reaches the carrying capacity.
+The second model created split the population into two separate populations with open connectivity.
+This model simulated the separation of a population.
+The third model created reduced the connectivity, simulating the implementation of a roadway.
+Survival rates at each stage received a 10% deduction to account for the roadway.
+The fourth model created lessened survival rates by another 10%, decreased connectivity between the two populations by 50% to incorporate heavier vehicle traffic on the road.
+The final model decreased survival by 50%, and decreased connectivity by 90% to simulate constant, heavy traffic on the road, as well as increased mortality rates that lessen the likelihood of survival near a roadway.
+  Designing the demographic models required survivorship values collected through previous research done by Selina Heppell in 1998, while habitat size and population dynamics incorporate the field study. 
+Carrying capacity was interpreted through research on population dynamics of turtles, while the parameters for the models was based on field research of a pair of wetlands located in Cold Spring, NY at the top of Foundry Brook throughout the summer of 2016.
+These wetlands feed into Foundry Brook which discharges into the Hudson River North of Constitution Marsh.
+Google maps was used to determine the area of the northern and southern wetlands. 
+Originally, these bisected wetlands were once a single wetland. 
+With this piece of history added into consideration, it is feasible to design a demographic model of what that single wetland might have been. 
+Through field research of the wetlands and Google Maps to measure the area of the wetland, it was determined that there is a potential for the wetlands to support a carrying capacity of over 40 snapping turtles.
+During the trapping season, which began in late May of 2016 through the month of August, we determined that not all turtles were captured. 
+There was not any fluctuations of recaptures during our field research, which has lead us to believe that the population was not exhausted while trapping.
+There are also possibilities of immigration and emigration occurring between other nearby habitats. 
+Barret Pond, Lake Surprise, and the woodlands between the waterbodies are suitable habitats for the species, but were not focused on during the field study. 
+The rough estimate of 40 turtles for the carrying capacity was determined through the field research, accounting for not exhausting the population, and considering immigration and migration to play a role during the field season. 
+	Survival and reproduction parameters were collected using data from published sources from Congdon study in 1994. 
+Average clutch size of snapping turtles is 28 eggs (Congdon, 1994).
+Roughly, the average life span of a snapping turtle is about 40 years. 
+Snappers typically reach sexual maturity around 12 years of age (Congdon, 1987), but this depends on how long their breeding season lasts.
+In the northern part of the country, snapping turtles will reach sexual maturity earlier to compensate for the lack of warmer weather during the summer. 
+For areas south of West Virginia, snapping turtles tend to reach sexual maturity later on, giving them more time to eat, grow, and develop. 
+This lag due to temperature fluctuations in the northern part of the country can lead to different population dynamics.
+	Density dependent factors play a key role in the dynamics of turtle populations.
+With high population, there is constant competition for resources. 
+Since the adults are the largest, they tend to out compete the younger stages for food and territory. 
+Thus, the earlier stages are more mobile throughout the watershed. 
+Adults are typically found on land when they are ready to breed. 
+Turtles may leave the wetlands for upland habitats in search of a proper nesting area during the late spring-early summer. 
+With high population density in a specific habitat, many of the younger stages will be forced to move in search of habitat. 
+With low population density, the young stages have free reign over the habitat and resources. 
+A notable issue with low population density is that the survival rates for the hatchling and juvenile stages is very low making it more difficult to balance the population when the number of individuals is low. 
+
+  
+##Anything below this line of text was removed, but I left it here just in case 
+#This estimate comes from determining that not all snapping turtles were captured, majority of the turtles captured were Chrysemys picta (painted turtles), and the possibility of turtles migrating to other habitat in the area (this needs to stay in the painted turtles section). 
+
+#{May 22-June 12 nesting season (Congdon, 1987)}

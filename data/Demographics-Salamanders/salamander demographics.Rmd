@@ -1,0 +1,25 @@
+---
+title: "Salamander Demographics section"
+output: html_notebook
+author: Michael Tierney
+---
+
+Salamander Demographic section
+  Salamander are sensitive to temperature, water quality, predation, and habitat degradation. 
+A set of demographic models were created using RAMAS GIS. 
+The parameters used in the models encompass a generic life history of Ambystoma maculatum (spotted salamander), Plethodon cinereus (Northern redback salamander), Ambystoma opacum (Marbled salamander), Plethodon glutinosus (Northern slimy salamander), and Eurycea bislineata (Northern two-lined salamander). 
+It is important to note that all species of salamander have unique characteristics that distinguish one species from another. 
+However, for this study the survival rates, fecundity, and mortality have been averaged together to create a set of generic life history models for the salamanders. 
+Similar to the other demographic models of species included in this project, the area of the wetlands in Cold Spring, NY collected from GoogleMaps is used to determine an average carrying capacity and initial abundance. 
+The 5 models created relate to how the wetlands in Cold Spring has evolved over time: from a single large wetland, then under some surrounding human development, then a road bisecting the wetland, to including traffic flow and increasing mortality rates, and finally under heavy road maintenance making it nearly impossible to cross the road from one population to the other.
+  All studies of the salamander species were done post-breeding season, making the models consistent and relatable from one species to the other in these generic life history models. 
+The first model displays a perfect scenario for the species with their survival, fecundity, and carrying capacity set to parameterize the habitat. 
+This scenario displays a single population before any fragmentation has occurred, similar to the history of the Cold Spring field study region. 
+The next model splits the two populations, but does not affect any of the vital rates. Dispersal set to .5 between the two populations allowing for emigration and immigration. 
+The next model takes into account habitat degradation through roadway construction, as well as the presence of the road and reduces survival by 10% across all stages. 
+The fourth model reduces survival by 10% again, and reduces dispersal by 50% to account for more regular traffic on the road. 
+The fifth model displays a 90% reduction in dispersal, and reduced survival rates 50% across all stages accounting for heavy traffic and very limited survival on the road. 
+Being that salamanders are rarely ever seen by drivers, this survival rate is relatable to the roadways at any time a salamander attempts to travel on a road.  
+  Using a GLH modeling approach helps to generalize the results concerning the salamanders and the roadway. 
+Due to the ecological impacts from the road on the habitats, it is assumed that the vital rates can be affected across the multiple species of salamanders. 
+The purpose of the study is to interpret how roads affect amphibian and reptile populations, and the affect that culverts have mitigating this human-induced mortality. 
