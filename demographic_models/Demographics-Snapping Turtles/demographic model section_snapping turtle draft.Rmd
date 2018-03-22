@@ -6,7 +6,7 @@ author: Michael Tierney
 
 Demographic Models
 
-  A population model of chelydra serpentina (snapping turtles) was developed using age, population density, and habitat suitability in order to determine population dynamics for the species.
+A population model of chelydra serpentina (snapping turtles) was developed using age, population density, and habitat suitability in order to determine population dynamics for the species.
 The software used to develop the models was RAMAS GIS.
 This model took into account only females in the population.
 Therefore, the only values affected by this are clutch sizes while a stage matrix is used to determine suitability as the species evolves from a hatchling, to a juvenile, to a sub-adult, and finally into an adult snapping turtle.
