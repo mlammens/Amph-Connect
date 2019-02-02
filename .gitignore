@@ -4,7 +4,9 @@
 .Ruserdata
 */*SCL
 .dropbox
+.DS_Store
 Icon*
-
+*.pdf
 # Ignore these directories
 presentations/
+*/*.asc
