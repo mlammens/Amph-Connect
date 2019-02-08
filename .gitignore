@@ -3,6 +3,9 @@
 .RData
 .Ruserdata
 */*SCL
+*/*/*SCL
+*SCL
+*png
 .dropbox
 .DS_Store
 Icon*
