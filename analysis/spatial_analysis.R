@@ -160,6 +160,7 @@ vernal_pool_mask <- spTransform(vernal_pool_mask, crs(study_area))
 wcforests <- landcov_wgs84
 wcforests[!(wcforests[] %in% c(1,2))] <- NA
 wcforests <- crop(wcforests, study_area)
+wcforests <- resample(wcforests, roads, method = "ngb")
 
 northern_redback_mask <- wcforests
 
@@ -168,7 +169,7 @@ northern_redback_mask <- wcforests
 ##
 ## Steep slopes
 ## -------------------------------------------------------------------------- ##
-slimy_mask <- crop(wcstep_slopes_shp, study_area)
+slimy_mask <- crop(wcsteep_slopes_shp, study_area)
 
 
 ## -------------------------------------------------------------------------- ##
@@ -187,7 +188,7 @@ toad_mask <- crop(wetlands_shp, study_area)
 ## For now, we will use lakes and wetlands
 ## -------------------------------------------------------------------------- ##
 
-frog_wetlands_lakes <- union(crop(lakes_shp, study_area), 
+frog_wetlands_lakes <- raster::union(crop(lakes_shp, study_area), 
                              crop(wetlands_shp, study_area))
 
 ## -------------------------------------------------------------------------- ##
@@ -275,32 +276,169 @@ apply_species_mask <- function(species_sdm, qgis_dir = qgis_dir, study_area = st
 
 sdm_results <- list.files(path = paste0(grant_dir,"species_distributions/sdm_results/"), pattern = "asc", full.names = TRUE)
 
-## Snapping turtles
-## -------------------------------------------------------------------------- ##
-snappers <- raster(paste0(grant_dir, "species_distributions/snapping-turtle.asc"))
-painted <- raster(paste0(grant_dir,"species_distributions/painted-turtle.asc"))
+# for(spec in sdm_results){
+#   # Get a basename for each species
+#   spec_name <- gsub(basename(spec), pattern = "\\.asc", replace = "")
+#   spec_name <- gsub(spec_name, pattern = "\\-", replace = "_")
+#   
+#   # Apply the `apply_species_mask` function to each of these layers, creating a raster stack for each
+#   eval(parse(text = paste( paste0(parse(text = spec_name), "_30m_stack"), 
+#                            "<-",
+#                            "apply_species_mask(raster(spec), qgis_dir = qgis_dir, study_area = study_area, roads = roads, species_mask = turtle_mask)")))
+#   
+#   
+#   print(spec_name)
+# }
 
-snapping_turtle_30m_stack <- 
-  apply_species_mask(snappers, qgis_dir = qgis_dir, study_area = study_area,
-                     roads = roads, species_mask = turtle_mask)
-
+snapping_turtle_30m_stack <-
+  apply_species_mask(raster(paste0(grant_dir,"species_distributions/sdm_results/snapping-turtle.asc")), 
+                     qgis_dir = qgis_dir, study_area = study_area, roads = roads, species_mask = turtle_mask)
 painted_turtle_30m_stack <-
-  apply_species_mask(painted, qgis_dir = qgis_dir, study_area = study_area,
-                     roads = roads, species_mask = turtle_mask)
+  apply_species_mask(raster(paste0(grant_dir,"species_distributions/sdm_results/painted-turtle.asc")), 
+                     qgis_dir = qgis_dir, study_area = study_area, roads = roads, species_mask = turtle_mask)
+wood_frog_30m_stack <-
+  apply_species_mask(raster(paste0(grant_dir,"species_distributions/sdm_results/wood-frog.asc")), 
+                     qgis_dir = qgis_dir, study_area = study_area, roads = roads, species_mask = vernal_pool_mask)
+spring_peeper_30m_stack <-
+  apply_species_mask(raster(paste0(grant_dir,"species_distributions/sdm_results/spring-peeper.asc")), 
+                     qgis_dir = qgis_dir, study_area = study_area, roads = roads, species_mask = frog_wetlands_lakes)
+gray_treefrog_30m_stack <-
+  apply_species_mask(raster(paste0(grant_dir,"species_distributions/sdm_results/gray-treefrog.asc")), 
+                     qgis_dir = qgis_dir, study_area = study_area, roads = roads, species_mask = frog_wetlands_lakes)
+pickerel_frog_30m_stack <-
+  apply_species_mask(raster(paste0(grant_dir,"species_distributions/sdm_results/pickerel-frog.asc")), 
+                     qgis_dir = qgis_dir, study_area = study_area, roads = roads, species_mask = frog_lakes)
+green_frog_30m_stack <-
+  apply_species_mask(raster(paste0(grant_dir,"species_distributions/sdm_results/green-frog.asc")), 
+                     qgis_dir = qgis_dir, study_area = study_area, roads = roads, species_mask = frog_lakes)
+bull_frog_30m_stack <-
+  apply_species_mask(raster(paste0(grant_dir,"species_distributions/sdm_results/bull-frog.asc")), 
+                     qgis_dir = qgis_dir, study_area = study_area, roads = roads, species_mask = frog_lakes)
+american_toad_30m_stack <-
+  apply_species_mask(raster(paste0(grant_dir,"species_distributions/sdm_results/american-toad.asc")), 
+                     qgis_dir = qgis_dir, study_area = study_area, roads = roads, species_mask = toad_mask)
+fowlers_toad_30m_stack <-
+  apply_species_mask(raster(paste0(grant_dir,"species_distributions/sdm_results/fowlers-toad.asc")), 
+                     qgis_dir = qgis_dir, study_area = study_area, roads = roads, species_mask = toad_mask)
+spotted_salamander_30m_stack <-
+  apply_species_mask(raster(paste0(grant_dir,"species_distributions/sdm_results/spotted-salamander.asc")), 
+                     qgis_dir = qgis_dir, study_area = study_area, roads = roads, species_mask = vernal_pool_mask)
+marbled_salamander_30m_stack <-
+  apply_species_mask(raster(paste0(grant_dir,"species_distributions/sdm_results/marbled_salamander.asc")), 
+                     qgis_dir = qgis_dir, study_area = study_area, roads = roads, species_mask = vernal_pool_mask)
+slimy_salamander_30m_stack <-
+  apply_species_mask(raster(paste0(grant_dir,"species_distributions/sdm_results/slimy_salamander.asc")), 
+                     qgis_dir = qgis_dir, study_area = study_area, roads = roads, species_mask = slimy_mask)
+redback_salamander_30m_stack <-
+  apply_species_mask(raster(paste0(grant_dir,"species_distributions/sdm_results/redback-salamander.asc")), 
+                     qgis_dir = qgis_dir, study_area = study_area, roads = roads, species_mask = northern_redback_mask)
+two_lined_salamander_30m_stack <-
+  apply_species_mask(raster(paste0(grant_dir,"species_distributions/sdm_results/two-lined-salamander.asc")), 
+                     qgis_dir = qgis_dir, study_area = study_area, roads = roads, species_mask = streams_200_buffer)
+red_spotted_newt_30m_stack <-
+  apply_species_mask(raster(paste0(grant_dir,"species_distributions/sdm_results/red-spotted-newt.asc")), 
+                     qgis_dir = qgis_dir, study_area = study_area, roads = roads, species_mask = newt_mask)
 
 
+
+## Read in all of the sdm results rasters as a stack
+sdm_stack <- stack(snapping_turtle_30m_stack$roads,
+                   painted_turtle_30m_stack$roads,
+                   wood_frog_30m_stack$roads,
+                   spring_peeper_30m_stack$roads,
+                   gray_treefrog_30m_stack$roads,
+                   pickerel_frog_30m_stack$roads,
+                   green_frog_30m_stack$roads,
+                   bull_frog_30m_stack$roads,
+                   american_toad_30m_stack$roads,
+                   fowlers_toad_30m_stack$roads,
+                   spotted_salamander_30m_stack$roads,
+                   marbled_salamander_30m_stack$roads,
+                   slimy_salamander_30m_stack$roads,
+                   redback_salamander_30m_stack$roads,
+                   two_lined_salamander_30m_stack$roads,
+                   red_spotted_newt_30m_stack$roads
+                   )
+
+names(sdm_stack) <- c("snapping_turtle",
+                      "painted_turtle",
+                      "wood_frog",
+                      "spring_peeper",
+                      "gray_tree_frog",
+                      "pickerel_frog",
+                      "green_frog",
+                      "bull_frog",
+                      "american_toad",
+                      "fowlers_toad",
+                      "spotted_salamander",
+                      "marbled_salamander",
+                      "slimy_salamander",
+                      "redback_salamander",
+                      "two_lined_salamander",
+                      "red_spotted_newt")
+
+
+plot(sdm_stack)
 
 ## ************************************************************************** ##
 
+
+## ************************************************************************** ##
+## Get SDM values at culvert locations for each species
+
+## Read in the culvert file
 culverts <- read.csv(paste0(grant_dir, "data/NAACC-culvert-crossings/crossings_detailed.csv"))
 
+## Extract the SDM values at culvert locations for each species
 snapping_turtle_culverts <- 
   as.data.frame(extract(snapping_turtle_30m_stack, 
                         y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate)))
-
 painted_turtle_culverts <-
   as.data.frame(extract(painted_turtle_30m_stack,
                         y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate)))
+wood_frog_culverts <-
+  as.data.frame(extract(wood_frog_30m_stack,
+                        y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate)))
+spring_peeper_culverts <-
+  as.data.frame(extract(spring_peeper_30m_stack,
+                        y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate)))
+gray_tree_frog_culverts <-
+  as.data.frame(extract(gray_treefrog_30m_stack,
+                        y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate)))
+pickerel_frog_culverts <-
+  as.data.frame(extract(pickerel_frog_30m_stack,
+                        y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate)))
+green_frog_culverts <-
+  as.data.frame(extract(green_frog_30m_stack,
+                        y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate)))
+bull_frog_culverts <-
+  as.data.frame(extract(bull_frog_30m_stack,
+                        y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate)))
+american_toad_culverts <-
+  as.data.frame(extract(american_toad_30m_stack,
+                        y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate)))
+fowlers_toad_culverts <-
+  as.data.frame(extract(fowlers_toad_30m_stack,
+                        y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate)))
+spotted_salamander_culverts <-
+  as.data.frame(extract(spotted_salamander_30m_stack,
+                        y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate)))
+marbled_culverts <-
+  as.data.frame(extract(marbled_salamander_30m_stack,
+                        y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate)))
+slimy_salamander_culverts <-
+  as.data.frame(extract(slimy_salamander_30m_stack,
+                        y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate)))
+redback_salamander_culverts <-
+  as.data.frame(extract(redback_salamander_30m_stack,
+                        y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate)))
+two_lined_salamander_culverts <-
+  as.data.frame(extract(two_lined_salamander_30m_stack,
+                        y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate)))
+red_spotted_newt_culverts <-
+  as.data.frame(extract(red_spotted_newt_30m_stack,
+                        y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate)))
+
 
 ## ************************************************************************** ##
 ## -------------------------------------------------------------------------- ##
@@ -332,13 +470,35 @@ assess_culvert_pri <- function(culv_hs_vals){
   return(culv_pri)
 }
 
+## Apply culvert prioritization function
+culverts$turtle_pri <- assess_culvert_pri(snapping_turtle_culverts)
+culverts$painted_pri <- assess_culvert_pri(painted_turtle_culverts)
+culverts$woodfrog_pri <- assess_culvert_pri(wood_frog_culverts)
+culverts$spring_peeper_pri <- assess_culvert_pri(spring_peeper_culverts)
+culverts$gray_tree_frog_pri <- assess_culvert_pri(gray_tree_frog_culverts)
+culverts$pickerel_pri <- assess_culvert_pri(pickerel_frog_culverts)
+culverts$green_frog_pri <- assess_culvert_pri(green_frog_culverts)
+culverts$bull_frog_pri <- assess_culvert_pri(bull_frog_culverts)
+culverts$american_toad_pri <- assess_culvert_pri(american_toad_culverts)
+culverts$fowlers_toad_pri <- assess_culvert_pri(fowlers_toad_culverts)
+culverts$spotted_salamander_pri <- assess_culvert_pri(spotted_salamander_culverts)
+culverts$marbled_salamander_pri <- assess_culvert_pri(marbled_culverts)
+culverts$slimy_salamander_pri <- assess_culvert_pri(slimy_salamander_culverts)
+culverts$redback_salamander_pri <- assess_culvert_pri(redback_salamander_culverts)
+culverts$two_lined_salamander_pri <- assess_culvert_pri(two_lined_salamander_culverts)
+culverts$red_spotted_newt <- assess_culvert_pri(red_spotted_newt_culverts)
 
-# culverts$turtle_priority <- 0
-# culverts$turtle_priority <- ifelse(!is.na(snapper_culverts_roads), yes = 1, no = 0)
-# culverts$turtle_priority[which(snapper_culverts_noroads == 0)] <- 2
+## Calculate total and mean priorties
+all_pri <- select(culverts, ends_with("pri"))
+culverts$all_pri_total <- apply(all_pri, MARGIN = 1, sum)
+culverts$all_pri_mean <- apply(all_pri, MARGIN = 1, mean)
 
-turtle_pri <- assess_culvert_pri(snapping_turtle_culverts)
-painted_pri <- assess_culvert_pri(painted_turtle_culverts)
+## Write the new culvert data.frame
+#write.csv(x = culverts, file = paste0(grant_dir, "data/NAACC-culvert-crossings/crossings_with_priorities.csv"), row.names = FALSE)
 
+write_asc <- TRUE
 
-
+if(write_asc){
+  writeRaster(snapping_turtle_30m_stack$noroads, "species_distributions/sdm_masked/snapping-turtle-masked.asc")
+  
+}
