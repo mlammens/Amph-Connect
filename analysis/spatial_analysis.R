@@ -499,6 +499,20 @@ culverts$all_pri_mean <- apply(all_pri, MARGIN = 1, mean)
 write_asc <- TRUE
 
 if(write_asc){
-  writeRaster(snapping_turtle_30m_stack$noroads, "species_distributions/sdm_masked/snapping-turtle-masked.asc")
-  
+  writeRaster(snapping_turtle_30m_stack$noroads, "species_distributions/sdm_masked/snapping-turtle-masked.asc", overwrite = TRUE)
+  writeRaster(painted_turtle_30m_stack$noroads, "species_distributions/sdm_masked/painted-turtle-masked.asc", overwrite = TRUE)
+  writeRaster(wood_frog_30m_stack$noroads, "species_distributions/sdm_masked/wood-frog-masked.asc", overwrite = TRUE)
+  writeRaster(spring_peeper_30m_stack$noroads, "species_distributions/sdm_masked/spring-peeper-masked.asc", overwrite = TRUE)
+  writeRaster(gray_treefrog_30m_stack$noroads, "species_distributions/sdm_masked/gray-tree-frog-masked.asc")
+  writeRaster(pickerel_frog_30m_stack$noroads, "species_distributions/sdm_masked/pickerel-frog-masked.asc")
+  writeRaster(green_frog_30m_stack$noroads, "species_distributions/sdm_masked/green-frog-masked.asc")
+  writeRaster(bull_frog_30m_stack$noroads, "species_distributions/sdm_masked/bull-frog-masked.asc")
+  writeRaster(american_toad_30m_stack$noroads, "species_distributions/sdm_masked/american-toad-masked.asc")
+  writeRaster(fowlers_toad_30m_stack$noroads, "species_distributions/sdm_masked/fowlers-toad-masked.asc")
+  writeRaster(spotted_salamander_30m_stack$noroads, "species_distributions/sdm_masked/spotted-salamander-masked.asc")
+  writeRaster(marbled_salamander_30m_stack$noroads, "species_distributions/sdm_masked/marbled-salamander-masked.asc")
+  writeRaster(slimy_salamander_30m_stack$noroads, "species_distributions/sdm_masked/slimy-salamander-masked.asc")
+  writeRaster(redback_salamander_30m_stack$noroads, "species_distributions/sdm_masked/redback-salamander-masked.asc")
+  writeRaster(two_lined_salamander_30m_stack$noroads, "species_distributions/sdm_masked/two-lined-salamander-masked.asc")
+  writeRaster(red_spotted_newt_30m_stack$noroads, "species_distributions/sdm_masked/red-spotted-newt-masked.asc")
 }
