@@ -27,13 +27,13 @@ library(dplyr)
 ## ************************************************************************** ##
 
 ## Set your qgis directory. This will be different for Matt or Mike
-#qgis_dir <- "/Users/maiellolammens/Dropbox/Projects/Amphibian-Connectivity/QGIS Files/" # Matt
-qgis_dir <- "/home/mlammens/Dropbox/Projects/Amphibian-Connectivity/QGIS Files/" # Matt-Linux
+qgis_dir <- "/Users/maiellolammens/Dropbox/Projects/Amphibian-Connectivity/QGIS Files/" # Matt
+#qgis_dir <- "/home/mlammens/Dropbox/Projects/Amphibian-Connectivity/QGIS Files/" # Matt-Linux
 #gqis_dir <- "/Users/mtier_000/Dropbox/QGIS Files/" # Mike
 
 ## Set your grant execution directory.
-#grant_dir <- "/Users/maiellolammens/Dropbox/Projects/Amphibian-Connectivity/DEC-Estuary-Program-Grant-Execution/" # Matt
-grant_dir <- "/home/mlammens/Dropbox/Projects/Amphibian-Connectivity/DEC-Estuary-Program-Grant-Execution/" # Matt-Linux
+grant_dir <- "/Users/maiellolammens/Dropbox/Projects/Amphibian-Connectivity/DEC-Estuary-Program-Grant-Execution/" # Matt
+#grant_dir <- "/home/mlammens/Dropbox/Projects/Amphibian-Connectivity/DEC-Estuary-Program-Grant-Execution/" # Matt-Linux
 
 
 ## Load in background layers
@@ -496,7 +496,7 @@ culverts$all_pri_mean <- apply(all_pri, MARGIN = 1, mean)
 ## Write the new culvert data.frame
 #write.csv(x = culverts, file = paste0(grant_dir, "data/NAACC-culvert-crossings/crossings_with_priorities.csv"), row.names = FALSE)
 
-write_asc <- TRUE
+write_asc <- FALSE
 
 if(write_asc){
   writeRaster(snapping_turtle_30m_stack$noroads, "species_distributions/sdm_masked/snapping-turtle-masked.asc", overwrite = TRUE)
@@ -516,3 +516,22 @@ if(write_asc){
   writeRaster(two_lined_salamander_30m_stack$noroads, "species_distributions/sdm_masked/two-lined-salamander-masked.asc")
   writeRaster(red_spotted_newt_30m_stack$noroads, "species_distributions/sdm_masked/red-spotted-newt-masked.asc")
 }
+
+## ************************************************************************** ##
+
+## Priortization part two
+##
+## - the asc files above were used in RAMAS SPATIAL to make metapopulation patch files
+## - these patch files will be read in here, and culverts will be identified that connect patches
+
+## Read in culvert data
+culverts <- read.csv(paste0(grant_dir, "data/NAACC-culvert-crossings/crossings_with_priorities.csv"))
+
+## Read in patch maps
+snapping_turtle_patch <- raster("metapop models/metapop models/snapping turtle.ASC")
+
+two_lined_salamander_patch <- raster("metapop models/metapop models/two-lined salamander.ASC")
+
+
+## Extract the patch numbers around the culverts
+two_lined_salamander_culvPatch <- extract(two_lined_salamander_patch, y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate))
