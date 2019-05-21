@@ -529,9 +529,93 @@ culverts <- read.csv(paste0(grant_dir, "data/NAACC-culvert-crossings/crossings_w
 
 ## Read in patch maps
 snapping_turtle_patch <- raster("metapop models/metapop models/snapping turtle.ASC")
-
+painted_turtle_patch <- raster("metapop models/metapop models/painted turtles.ASC")
+#wood_frog_patch <- raster("metapop models/metapop models/wood frog.ASC")
+spring_peeper_patch <- raster("metapop models/metapop models/spring peeper.ASC")
+gray_tree_frog_patch <- raster("metapop models/metapop models/gray frog.ASC")
+pickerel_frog_patch <- raster("metapop models/metapop models/pickerel frog.ASC")
+green_frog_patch <- raster("metapop models/metapop models/green frog.ASC")
+bull_frog_patch <- raster("metapop models/metapop models/bull frog.ASC")
+american_toad_patch <- raster("metapop models/metapop models/american toad.ASC")
+fowlers_toad_patch <- raster("metapop models/metapop models/fowlers toad.ASC")
+spotted_salamander_patch <- raster("metapop models/metapop models/spotted salamander.ASC")
+marbled_salamander_patch <- raster("metapop models/metapop models/marbled salamander.ASC")
+slimy_salamander_patch <- raster("metapop models/metapop models/slimy salamander.ASC")
+redback_salamander_patch <- raster("metapop models/metapop models/redback salamander.ASC")
 two_lined_salamander_patch <- raster("metapop models/metapop models/two-lined salamander.ASC")
+red_spotted_newt_patch <- raster("metapop models/metapop models/red-spotted newt.ASC")
 
 
 ## Extract the patch numbers around the culverts
-two_lined_salamander_culvPatch <- extract(two_lined_salamander_patch, y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate))
+culverts$snapping_turtle_patchPri <- extract(snapping_turtle_patch, 
+                                             y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate),
+                                             buffer = 30, 
+                                             fun = function(x){length(unique(x[x!=0]))})
+culverts$painted_turtle_patchPri <- extract(painted_turtle_patch, 
+                                             y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate),
+                                             buffer = 30, 
+                                             fun = function(x){length(unique(x[x!=0]))})
+# culverts$wood_frog_patchPri <- extract(wood_frog_patch, 
+#                                              y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate),
+#                                              buffer = 30, 
+#                                              fun = function(x){length(unique(x[x!=0]))})
+culverts$spring_peeper_patchPri <- extract(spring_peeper_patch, 
+                                             y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate),
+                                             buffer = 30, 
+                                             fun = function(x){length(unique(x[x!=0]))})
+culverts$gray_tree_frog_patchPri <- extract(gray_tree_frog_patch, 
+                                             y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate),
+                                             buffer = 30, 
+                                             fun = function(x){length(unique(x[x!=0]))})
+culverts$pickerel_frog_patchPri <- extract(pickerel_frog_patch, 
+                                             y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate),
+                                             buffer = 30, 
+                                             fun = function(x){length(unique(x[x!=0]))})
+culverts$green_frog_patchPri <- extract(green_frog_patch, 
+                                             y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate),
+                                             buffer = 30, 
+                                             fun = function(x){length(unique(x[x!=0]))})
+culverts$bull_frog_patchPri <- extract(bull_frog_patch, 
+                                             y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate),
+                                             buffer = 30, 
+                                             fun = function(x){length(unique(x[x!=0]))})
+culverts$american_toad_patchPri <- extract(american_toad_patch, 
+                                             y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate),
+                                             buffer = 30, 
+                                             fun = function(x){length(unique(x[x!=0]))})
+culverts$fowlers_toad_patchPri <- extract(fowlers_toad_patch, 
+                                             y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate),
+                                             buffer = 30, 
+                                             fun = function(x){length(unique(x[x!=0]))})
+culverts$spotted_salamander_patchPri <- extract(spotted_salamander_patch, 
+                                             y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate),
+                                             buffer = 30, 
+                                             fun = function(x){length(unique(x[x!=0]))})
+culverts$marbled_salamander_patchPri <- extract(marbled_salamander_patch, 
+                                             y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate),
+                                             buffer = 30, 
+                                             fun = function(x){length(unique(x[x!=0]))})
+culverts$slimy_salamander_patchPri <- extract(slimy_salamander_patch, 
+                                             y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate),
+                                             buffer = 30, 
+                                             fun = function(x){length(unique(x[x!=0]))})
+culverts$redback_salamander_patchPri <- extract(redback_salamander_patch, 
+                                             y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate),
+                                             buffer = 30, 
+                                             fun = function(x){length(unique(x[x!=0]))})
+culverts$two_lined_salamander_patchPri <- extract(two_lined_salamander_patch, 
+                                             y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate),
+                                             buffer = 30, 
+                                             fun = function(x){length(unique(x[x!=0]))})
+culverts$red_spotted_newt_patchPri <- extract(red_spotted_newt_patch, 
+                                             y = select(culverts, GPS_X_Coordinate, GPS_Y_Coordinate),
+                                             buffer = 30, 
+                                             fun = function(x){length(unique(x[x!=0]))})
+
+## Calculate total and mean priorties
+all_patchPri <- select(culverts, ends_with("patchPri"))
+culverts$all_patchPri_total <- apply(all_patchPri, MARGIN = 1, sum)
+#culverts$all_patchPri_mean <- apply(all_patchPri, MARGIN = 1, mean)
+
+## Write the new culvert data.frame
+write.csv(x = culverts, file = paste0(grant_dir, "data/NAACC-culvert-crossings/crossings_with_priorities.csv"), row.names = FALSE)
