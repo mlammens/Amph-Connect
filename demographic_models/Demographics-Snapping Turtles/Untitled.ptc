@@ -1,0 +1,41 @@
+Landscape input file (4.1) map=ÿ
+
+
+
+
+
+0.03000
+[Map 1]
+
+0.50000
+30.00000
+Blue,False
+2
+1000
+1.1
+100
+1
+1
+
+Z:\Users\maiellolammens\Dropbox\Projects\Amphibian-Connectivity\DEC-Estuary-Program-Grant-Execution\demographic_models\Demographics-Snapping Turtles\Snapping-Turtle.mp
+0
+1
+0
+1
+No
+
+Center to edge
+1
+Map 1
+Z:\Users\maiellolammens\Dropbox\Projects\Amphibian-Connectivity\DEC-Estuary-Program-Grant-Execution\species_distributions\snappers_masked.asc
+ARC/INFO,ConstantMap
+Blue
+2380
+,0.000,0.000,,EX,,,0.0,0.0,,0.0,1,0,TRUE,1,1,1,0.0,1,0,1,0,0,0,1.0,
+Migration
+TRUE
+0.59000,0.50000,1.00000,3.00000
+Correlation
+TRUE
+0.99000,700.00000,1.00000
+-End of file-
