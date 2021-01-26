@@ -20,6 +20,7 @@ library(sf)
 library(maptools)
 library(PBSmapping)
 library(dplyr)
+library(ggplot2)
 
 
 ## ************************************************************************** ##
@@ -616,6 +617,13 @@ culverts$red_spotted_newt_patchPri <- extract(red_spotted_newt_patch,
 all_patchPri <- select(culverts, ends_with("patchPri"))
 culverts$all_patchPri_total <- apply(all_patchPri, MARGIN = 1, sum)
 #culverts$all_patchPri_mean <- apply(all_patchPri, MARGIN = 1, mean)
+
+
+## Make decision tool figure
+ggplot(data = culverts, aes(x = Evaluation, fill = as.factor(all_patchPri_total))) +
+  geom_bar()
+
+
 
 ## Write the new culvert data.frame
 write.csv(x = culverts, file = paste0(grant_dir, "data/NAACC-culvert-crossings/crossings_with_priorities.csv"), row.names = FALSE)

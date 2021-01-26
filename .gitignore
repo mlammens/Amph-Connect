@@ -13,7 +13,3 @@ Icon*
 # Ignore these directories
 presentations/
 */*.asc
-metapop models/*
-species_distributions/sdm_masked/*
-species_distributions/sdm_results/*
-species_distributions/wc0.5/*
