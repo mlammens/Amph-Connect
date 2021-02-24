@@ -1,0 +1,52 @@
+---
+title: "Manuscript Figures"
+author: "Matthew E. Aiello-Lammens"
+date: "2/23/2021"
+output: html_document
+---
+
+Load packages
+
+```{r}
+library(tidyverse)
+```
+
+
+
+Read in finished culvert priortization data frame.
+
+```{r}
+culverts <- read_csv(file = "../data/NAACC-culvert-crossings/crossings_with_priorities.csv")
+```
+
+Make a bar plot of the number of culverts in each evaluation category
+
+```{r}
+culverts$Evaluation <-
+  fct_relevel(culverts$Evaluation, 
+              c("No barrier", "Insignificant barrier", "Minor barrier",
+                "Moderate barrier", "Significant barrier", "Severe barrier",
+                "no score - missing data"))
+
+ggplot(data = culverts, aes(x = Evaluation)) +
+  geom_bar() +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90)) 
+ggsave(filename = "../manuscript/culvert_eval_barplot.tiff", 
+       width = 6.5, height = 6.5, units = "in")
+```
+
+Make a table for calculating values to write in the results section.
+
+```{r}
+evaluation_count <-
+  culverts %>%
+  group_by(Evaluation) %>%
+  count() 
+
+evaluation_count$percent <- round(evaluation_count$n / sum(evaluation_count$n), 2)
+
+sum(evaluation_count$n)
+knitr::kable(evaluation_count)
+```
+
