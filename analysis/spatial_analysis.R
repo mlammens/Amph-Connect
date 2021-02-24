@@ -28,13 +28,13 @@ library(ggplot2)
 ## ************************************************************************** ##
 
 ## Set your qgis directory. This will be different for Matt or Mike
-qgis_dir <- "/Users/maiellolammens/Dropbox/Projects/Amphibian-Connectivity/QGIS Files/" # Matt
-#qgis_dir <- "/home/mlammens/Dropbox/Projects/Amphibian-Connectivity/QGIS Files/" # Matt-Linux
+#qgis_dir <- "/Users/maiellolammens/Dropbox/Projects/Amphibian-Connectivity/QGIS Files/" # Matt
+qgis_dir <- "/home/mlammens/Dropbox/Projects/Amphibian-Connectivity/QGIS Files/" # Matt-Linux
 #gqis_dir <- "/Users/mtier_000/Dropbox/QGIS Files/" # Mike
 
 ## Set your grant execution directory.
-grant_dir <- "/Users/maiellolammens/Dropbox/Projects/Amphibian-Connectivity/DEC-Estuary-Program-Grant-Execution/" # Matt
-#grant_dir <- "/home/mlammens/Dropbox/Projects/Amphibian-Connectivity/DEC-Estuary-Program-Grant-Execution/" # Matt-Linux
+#grant_dir <- "/Users/maiellolammens/Dropbox/Projects/Amphibian-Connectivity/DEC-Estuary-Program-Grant-Execution/" # Matt
+grant_dir <- "/home/mlammens/Dropbox/Projects/Amphibian-Connectivity/DEC-Estuary-Program-Grant-Execution/" # Matt-Linux
 
 
 ## Load in background layers
@@ -520,7 +520,7 @@ if(write_asc){
 
 ## ************************************************************************** ##
 
-## Priortization part two
+## Prioritization part two
 ##
 ## - the asc files above were used in RAMAS SPATIAL to make metapopulation patch files
 ## - these patch files will be read in here, and culverts will be identified that connect patches
