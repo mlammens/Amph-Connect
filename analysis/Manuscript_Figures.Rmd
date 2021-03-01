@@ -50,3 +50,15 @@ sum(evaluation_count$n)
 knitr::kable(evaluation_count)
 ```
 
+
+
+```{r}
+ggplot(data = culverts, aes(x = all_patchPri_total, fill = Evaluation)) +
+  geom_bar() +
+  xlab("Culvert priortization score") +
+  ylab("Number of culverts") +
+  theme_bw() 
+ggsave(filename = "../manuscript/culvert_priscore_barplot.tiff",
+       width = 6.5, height = 6.5, units = "in")
+```
+
